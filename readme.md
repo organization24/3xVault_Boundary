@@ -14,7 +14,7 @@
 
 ### Simple diagram :
 
-![Diagram](https://lucid.app/publicSegments/view/e4705799-21ff-4570-a87c-c8d04be7475b/image.png)
+![Diagram](https://lucid.app/publicSegments/view/2e1f52ff-5eca-43e2-9514-82071849bc05/image.png)
 
 ### Prerequisites :
 

@@ -21,6 +21,6 @@ resource "aws_instance" "boundary_worker" {
       condition     = data.aws_ami.ubuntu.architecture == "x86_64"
       error_message = "The selected AMI must be for the x86_64 architecture."
     }
-    ignore_changes = ["user_data"]
+    ignore_changes = [user_data]
   }
 }

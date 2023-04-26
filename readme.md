@@ -66,7 +66,7 @@
 
   # Boundary config section
   boundary_version                = "0.12.2+hcp-1" # Use "apt search boundary" to find all versions
-  boundary_ec2_type               = "small" # "small" or "large". Size of the EC2 instace of the Boundary worker
+  boundary_ec2_type               = "small" # "small" or "large". Size of the EC2 instance of the Boundary worker
   addr                            = "https://CLUSTER_ID.boundary.hashicorp.cloud" # Address for HCP Boundary cluster
   auth_method_id                  = "ampw_NUMBER" # Admin login method ID for HCP Boundary. 
   password_auth_method_login_name = "admin" # Admin user
@@ -79,6 +79,6 @@
 ### Contributing :
 
   - PRs are welcome !
-  - Issues report are welcome!
+  - Issue reports are welcome!
 ### License :
   - [MIT](https://choosealicense.com/licenses/mit/)

@@ -1,0 +1,35 @@
+#cloud-config
+hostname: ${hostname}
+
+
+users:
+    - default # Really important, keeps the default ubuntu user with the AWS key_pair
+    - name: boundary
+      gecos: service boundary user
+      shell: /usr/sbin/nologin
+      system: true
+      lock_passwd: true
+
+# Adding Hashicorp repo
+apt:
+  sources:
+    hashicorp.list:
+      source: "deb [arch=amd64] https://apt.releases.hashicorp.com $RELEASE main"
+      keyid: A621E701
+
+# Installing vault enterprise, jq, terraform and awscli
+packages:
+  - [boundary-worker-hcp, "${boudary_version}"]
+  - jq
+  - awscli
+
+package_upgrade: false
+package_update: true
+
+# Adding the new hostname to /etc/hosts
+manage_etc_hosts: true
+fqdn: "${hostname}"
+
+timezone: ${timezone}
+
+final_message: "The system is finally up, after $UPTIME seconds"

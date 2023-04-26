@@ -44,7 +44,6 @@ module "vault-cluster-ap" {
   vpc_cidr       = var.clusters.ap.vpc_cidr
   vault_version  = var.clusters.ap.vault_version
   vault_ec2_type = var.clusters.ap.vault_ec2_type
-
 }
 
 # Connecting the clusters together, the DR and PR clusters have no connection.

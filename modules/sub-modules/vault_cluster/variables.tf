@@ -47,4 +47,3 @@ variable "vault_ec2_type" {
     error_message = "The \"vault_ec2_type\" varible should be one of the following \"small\" or \"large\""
   }
 }
-

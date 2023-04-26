@@ -3,6 +3,7 @@ ca.pem*
 NOTES*
 LOGS*
 /private_keys/private*
+/private_keys_boundary/private*
 !/**/.gitkeep
 trash/
 crash.log

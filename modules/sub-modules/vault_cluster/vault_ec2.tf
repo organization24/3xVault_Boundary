@@ -10,7 +10,7 @@ resource "aws_instance" "vault" {
   key_name      = aws_key_pair.vault-ssh-key.key_name   # Waiting on the key to be created first
 
   vpc_security_group_ids      = [aws_security_group.vault.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   ebs_optimized               = false
   private_ip                  = cidrhost(data.aws_subnet.subnets[each.key].cidr_block, 5) # Giving EC2 the 5th IP of each subnet, the first 4 and the last 4 IPs of each subnet are reserved by AWS
 

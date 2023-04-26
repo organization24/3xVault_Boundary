@@ -29,7 +29,7 @@ data "aws_route_table" "route_table_id_hq_region" {
 
   filter {
     name   = "tag:Name"
-    values = ["vault-*"]
+    values = ["vault-${local.hq_vault_region}-${var.random_id}"]
   }
 }
 
@@ -38,7 +38,7 @@ data "aws_route_table" "route_table_id_dr_region" {
   vpc_id   = element(tolist(data.aws_vpcs.vpc_id_dr_region.ids), 0)
   filter {
     name   = "tag:Name"
-    values = ["vault-*"]
+    values = ["vault-${local.dr_vault_region}-${var.random_id}"]
   }
 }
 
@@ -47,6 +47,6 @@ data "aws_route_table" "route_table_id_pr_region" {
   vpc_id   = element(tolist(data.aws_vpcs.vpc_id_pr_region.ids), 0)
   filter {
     name   = "tag:Name"
-    values = ["vault-*"]
+    values = ["vault-${local.pr_vault_region}-${var.random_id}"]
   }
 }

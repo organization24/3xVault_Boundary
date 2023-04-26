@@ -1,0 +1,55 @@
+## template: jinja
+#!/usr/bin/env bash
+
+
+cat << EOF > /usr/lib/systemd/system/boundary.service
+# /usr/lib/systemd/system/boundary.service
+[Unit]
+Description="HashiCorp Boundary - Identity-based access management for dynamic infrastructure"
+Documentation=https://www.boundaryproject.io/docs
+
+[Service]
+EnvironmentFile=-/etc/boundary.d/boundary.env
+User=boundary
+Group=boundary
+ProtectSystem=full
+ProtectHome=read-only
+ExecStart=/usr/bin/boundary-worker server -config=/etc/boundary.d/pki-worker.hcl
+ExecReload=/bin/kill --signal HUP $MAINPID
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+LimitMEMLOCK=infinity
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+
+# Creating config file for Boundary HCP worker
+mkdir -p /etc/boundary.d/worker1
+mkdir -p /boundary/worker1
+chown boundary:boundary /boundary/worker1
+
+cat << EOF > /etc/boundary.d/pki-worker.hcl
+disable_mlock = true
+hcp_boundary_cluster_id = "${hcp_boundary_cluster_id}"
+
+listener "tcp" {
+  address = "0.0.0.0:9202"
+  purpose = "proxy"
+}
+
+worker {
+  public_addr = "{{ ds.meta_data.public_ipv4 }}"
+  auth_storage_path = "/boundary/worker1"
+  controller_generated_activation_token = "${controller_generated_activation_token}"
+  tags {
+    hostname = ["${hostname}"]
+  }
+}
+EOF
+systemctl restart boundary
